@@ -61,7 +61,16 @@ int mainq (unsigned int toller, __float128 R)
     __float128 z = 0;
     FILE*      inpf;
 
-    __float128 T = (__float128) 1000 * powq(R/4 , -5.Q/3);
+    __float128 T =
+        (__float128) powq (10, 3) *
+        (R > 1
+             ? 93600 / (1.54Q * powq (R / 20.Q, 3) -
+                        2745.85Q * powq (R / 20.Q, 2) + 1860297.34Q * R / 20.Q)
+             : (powq (10, 15) / (656551.86Q * powq (R + 100, 3) +
+                                 835126.17Q * powq (R + 100, 2) -
+                                 474085.78Q * (R + 100) + 7000009000000.Q) -
+                129.13Q));
+
     __float128 err;
 
     unsigned int s;
